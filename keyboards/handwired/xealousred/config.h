@@ -29,13 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
-#define DEBOUNCE 5
+#define DEBOUNCE 10
 #define USB_POLLING_INTERVAL_MS 1
 
 #define LAYER_STATE_8BIT
 #define MAX_LAYER 2
 
-#define MATRIX_IO_DELAY 17
+#define MATRIX_IO_DELAY 2
 
 
 //debug scanrate
