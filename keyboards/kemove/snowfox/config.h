@@ -36,7 +36,7 @@
 // layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
 
 // Max available layers
-#define MAX_LAYERS 8
+#define MAX_LAYERS 4
 // keymaps size: layer size * MAX_LAYERS = 1152 bytes
 
 #define KEYMAP_60_ANSI
