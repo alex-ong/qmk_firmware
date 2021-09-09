@@ -61,7 +61,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_LGUI, KC_LALT,      KC_TRNS,             KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
+    KC_TRNS, KC_LALT, KC_LGUI,      KC_TRNS,             KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
   ),
 
   /* Layer _FN_LAYER
@@ -72,14 +72,14 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |-----------------------------------------------------------------------------------------+
   * |         |  <  |  v  |  >  | LBD | LBU | HOM | <   |  v  | ->  | INS | DEL |             |
   * |-----------------------------------------------------------------------------------------+
-  * |           | BT1 | BT2 | BT3 |     |     | END |    | Vo- | Vo+  | VoM |                 |
+  * |           | BT1 | BT2 | BT3 | LPD | LPU | END |    | Vo- | Vo+  | VoM |                 |
   * |-----------------------------------------------------------------------------------------+
   * |       |       |       |                                 |       |       |      |        |
   * \-----------------------------------------------------------------------------------------/
   */
   [_FN_LAYER] = KEYMAP( /* Base */
     KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
-    KC_CAPS, KC_PGUP, KC_UP, KC_PGDN, SF_LON, SF_LOFF, KC_TRNS, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SLCK, KC_PAUS, SF_LN,
+    KC_CAPS, KC_PGUP, KC_UP, KC_PGDN, SF_LOFF, SF_LON, KC_TRNS, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SLCK, KC_PAUS, SF_LN,
     KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT, SF_LBD, SF_LBU, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_INS, KC_DEL, KC_TRNS,
     KC_TRNS, SF_BLE1, SF_BLE2, SF_BLE3, SF_LPD, SF_LPU, KC_END, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,             KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS
