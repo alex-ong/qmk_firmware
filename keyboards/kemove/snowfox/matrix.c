@@ -29,12 +29,37 @@ static uint32_t debounce_times[MATRIX_COLS];
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
+static int row_port[MATRIX_ROWS]; // row to ioport0 or ioport1 mapping
+static uint32_t row_pad[MATRIX_ROWS]; //mask to get from row data to single row value
+
+#define ROW_PORT_FUNC(line_row) (LPC_IOPORT_NUM(PAL_PORT(line_row)))
+#define ROW_PAD(line_row) ((uint32_t)(1 << PAL_PAD(line_row)))
+
 void matrix_init(void) {
     memset(matrix, 0, MATRIX_COLS * sizeof(matrix_col_t));
     memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_col_t));
     memset(debounce_times, 0, MATRIX_COLS * sizeof(uint32_t));
-
+    for (int row = 0; row < MATRIX_ROWS; ++row)
+    {
+        ioline_t line = row_list[row];
+        row_port[row] = ROW_PORT_FUNC(line);
+        row_pad[row] = 1 << PAL_PAD(line);
+    }
     matrix_init_quantum();
+}
+
+#define CHOOSE_PORT(X, Y, Z) (X ? Z : Y)
+
+static inline matrix_col_t read_rows(uint32_t port0, uint32_t port1)
+{
+    return (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW1), port0, port1) & ROW_PAD(LINE_ROW1)) ? 0 : 1) << 0) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW2), port0, port1) & ROW_PAD(LINE_ROW2)) ? 0 : 1) << 1) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW3), port0, port1) & ROW_PAD(LINE_ROW3)) ? 0 : 1) << 2) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW4), port0, port1) & ROW_PAD(LINE_ROW4)) ? 0 : 1) << 3) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW5), port0, port1) & ROW_PAD(LINE_ROW5)) ? 0 : 1) << 4) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW6), port0, port1) & ROW_PAD(LINE_ROW6)) ? 0 : 1) << 5) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW7), port0, port1) & ROW_PAD(LINE_ROW7)) ? 0 : 1) << 6) |
+           (((CHOOSE_PORT(ROW_PORT_FUNC(LINE_ROW8), port0, port1) & ROW_PAD(LINE_ROW8)) ? 0 : 1) << 7);
 }
 
 uint8_t matrix_scan(void) {
@@ -42,20 +67,16 @@ uint8_t matrix_scan(void) {
     static uint32_t port_cache[2];
     // scan each col
     for (int col = 0; col < MATRIX_COLS; col++) {
-        palClearLine(col_list[col]);
+        ioline_t col_line = col_list[col];
+        palClearLine(col_line);
         __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
         // read i/o ports
         port_cache[0] = palReadPort(IOPORT0);
         port_cache[1] = palReadPort(IOPORT1);
-        palSetLine(col_list[col]);
+        palSetLine(col_line);
 
         // get columns from ports
-        matrix_col_t data = 0;
-        for (int row = 0; row < MATRIX_ROWS; ++row) {
-            ioline_t line = row_list[row];
-            uint32_t port = port_cache[LPC_IOPORT_NUM(PAL_PORT(line))];
-            data |= (((port & (1 << PAL_PAD(line))) ? 0 : 1) << row); // Inverted
-        }
+        matrix_col_t data = read_rows(port_cache[0], port_cache[1]);
 
         // if a key event happens <5ms before the system time rolls over,
         // the event will "never" debounce
