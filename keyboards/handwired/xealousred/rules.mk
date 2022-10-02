@@ -7,11 +7,11 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes        # Console for debug
-COMMAND_ENABLE = yes        # Commands for debug and configuration
+CONSOLE_ENABLE = yes         # Console for debug
+COMMAND_ENABLE = yes         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -24,10 +24,12 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_CUSTOM_KB = yes
 
+
 LAYOUTS = 60_ansi
 
 # special sauce for this keyboard
 DEBOUNCE_TYPE = sym_eager_pk    # Debounce using eager_pk.
 CUSTOM_MATRIX = lite        # Custom matrix that polls at 7000hz instead of a measly 2000hz.
 LTO_ENABLE = yes            # smaller binary
+OPT = 3                     # Compiler optimization level
 SRC += matrix.c

@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAX_LAYER 2
 
 #define MATRIX_IO_DELAY 2
-
+#define FORCE_NKRO
 
 //debug scanrate
 //#define DEBUG_MATRIX_SCAN_RATE

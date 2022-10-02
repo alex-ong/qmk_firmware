@@ -119,9 +119,16 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         unselect_rows();
         //this internally calls matrix_io_delay()
-        matrix_output_unselect_delay();
+        matrix_output_unselect_delay(current_row, changed);
     }
 
     return changed;
+}
+
+// Only need to unselect if something actually changed
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    if (key_pressed) {
+        matrix_io_delay();
+    }
 }
 
