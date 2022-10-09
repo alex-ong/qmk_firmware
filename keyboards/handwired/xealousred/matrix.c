@@ -132,3 +132,9 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     }
 }
 
+// Only need to unselect if something actually changed
+void matrix_output_select_delay() {
+    matrix_io_delay();
+}
+
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
