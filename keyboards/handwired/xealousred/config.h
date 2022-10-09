@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_STATE_8BIT
 #define MAX_LAYER 2
 
-#define MATRIX_IO_DELAY 2
+#define MATRIX_IO_DELAY 3
 #define FORCE_NKRO
 
 //debug scanrate
