@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define DEBOUNCE 15
+#define DEBOUNCE 30
 /* Use I2C or Serial, not both */
 
 //#define DEBUG_MATRIX_SCAN_RATE
